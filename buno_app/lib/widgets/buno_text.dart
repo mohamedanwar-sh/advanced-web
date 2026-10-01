@@ -23,7 +23,7 @@ class BunoText extends StatelessWidget {
   final TextAlign? textAlign;
   final int? maxLines;
 
-  static final _numeric = RegExp(r'[0-9٠-٩]+(?:[.,:][0-9]+)*%?');
+  static final _numeric = RegExp(r'#?[0-9٠-٩]+(?:[.,:][0-9]+)*%?');
 
   // Unicode LEFT-TO-RIGHT ISOLATE / POP DIRECTIONAL ISOLATE.
   static const _lri = '\u2066';

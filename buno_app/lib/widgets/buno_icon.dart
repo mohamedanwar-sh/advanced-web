@@ -13,7 +13,9 @@ enum BunoIcons {
   home('home'),
   history('history'),
   wallet('wallet'),
-  close('close');
+  close('close'),
+  warning('warning'),
+  receipt('receipt');
 
   const BunoIcons(this.fileName);
   final String fileName;

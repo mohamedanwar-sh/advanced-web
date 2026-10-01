@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'screens/home/home_screen.dart';
+import 'screens/rental/active_rental_screen.dart';
 import 'theme/buno_tokens.dart';
 import 'theme/buno_tokens_ext.dart';
 
@@ -48,7 +49,11 @@ class BunoApp extends StatelessWidget {
           contentTextStyle: BunoType.body,
         ),
       ),
-      home: const HomeScreen(),
+      // `flutter run --route /rental` (or `/#/rental` on web) opens page 10.
+      routes: {
+        '/': (_) => const HomeScreen(),
+        '/rental': (_) => const ActiveRentalScreen(),
+      },
     );
   }
 }

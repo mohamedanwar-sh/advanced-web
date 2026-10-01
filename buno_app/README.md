@@ -1,13 +1,19 @@
-# Buno: Home screen visual test
+# Buno: screen visual tests
 
-A one-screen Flutter implementation of **Brand Board page 7 (Home)**, built to
-check how closely the supplied design translates to Flutter. Only this screen
-exists; the other flows are deliberately left out.
+Flutter implementations of single Brand Board screens, built to check how
+closely the supplied design translates to Flutter. Only these screens exist;
+the flows between them are deliberately left out.
+
+| Screen | Board page | Route |
+|---|---|---|
+| Home | 7 | `/` |
+| Active rental timer | 10 | `/rental` |
 
 ```bash
 flutter pub get
-flutter run            # Android / iOS device or simulator
-flutter test           # overflow + RTL checks at 6 phone sizes, basic interactions
+flutter run                    # Home
+flutter run --route /rental    # Active rental (web: open /#/rental)
+flutter test                   # overflow + RTL checks at 6 phone sizes, interactions
 ```
 
 ## Layout
@@ -25,12 +31,17 @@ lib/
     buno_search_field.dart
     buno_chip.dart
     buno_station_card.dart          station info card
+    buno_charge_ring.dart           charge ring (12 o'clock, clockwise, glow)
+    buno_charge_bar.dart            8pt power-bank charge bar
+    buno_status_pill.dart           outlined status pill
     buno_bottom_nav.dart
     map_markers.dart                station / selected station / user markers
   screens/home/
     home_screen.dart                composition + bottom sheet
     home_top_bar.dart               logo, battery pill, profile button
     mock_map.dart                   local mock map (no maps SDK)
+  screens/rental/
+    active_rental_screen.dart       timer ring, cost rows, nearest station, actions
 assets/                             supplied SVGs + Sora / Readex Pro TTFs
 docs/                               screenshots
 ```

@@ -58,11 +58,19 @@ class BunoSecondaryButton extends StatelessWidget {
     required this.label,
     required this.onPressed,
     this.height = 52,
+    this.icon,
+    this.iconColor = BunoDark.text_secondary,
+    this.compact = false,
   });
 
   final String label;
   final VoidCallback? onPressed;
   final double height;
+  final BunoIcons? icon;
+  final Color iconColor;
+
+  /// Half-width variant (pair of buttons): 18pt icon, 13pt label.
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -76,12 +84,25 @@ class BunoSecondaryButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: BunoDark.border, width: BunoStroke.hairline),
         ),
-        child: Text(
-          label,
-          style: BunoType.button.copyWith(
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (icon != null) ...[
+              BunoIcon(
+                icon!,
+                color: iconColor,
+                size: compact ? BunoSize.iconSm : BunoSize.iconMd,
+              ),
+              const SizedBox(width: 10),
+            ],
+            Text(
+              label,
+              style: BunoType.button.copyWith(
+                fontWeight: FontWeight.w400,
+                fontSize: compact ? 13 : 14,
+              ),
+            ),
+          ],
         ),
       ),
     );
