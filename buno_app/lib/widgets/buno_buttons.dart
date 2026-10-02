@@ -61,6 +61,7 @@ class BunoSecondaryButton extends StatelessWidget {
     this.icon,
     this.iconColor = BunoDark.text_secondary,
     this.compact = false,
+    this.labelSize,
   });
 
   final String label;
@@ -71,6 +72,9 @@ class BunoSecondaryButton extends StatelessWidget {
 
   /// Half-width variant (pair of buttons): 18pt icon, 13pt label.
   final bool compact;
+
+  /// Overrides the label size (defaults: 14, or 13 when [compact]).
+  final double? labelSize;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +103,7 @@ class BunoSecondaryButton extends StatelessWidget {
               label,
               style: BunoType.button.copyWith(
                 fontWeight: FontWeight.w400,
-                fontSize: compact ? 13 : 14,
+                fontSize: labelSize ?? (compact ? 13 : 14),
               ),
             ),
           ],

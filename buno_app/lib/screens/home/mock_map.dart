@@ -66,9 +66,9 @@ class MockMap extends StatelessWidget {
                   onTap: onStationTap == null ? null : () => onStationTap!(s),
                 ),
               ),
-            at(selected, SelectedStationMarker.haloSize,
+            at(selected, 60,
                 SelectedStationMarker(readyCount: selectedReadyCount)),
-            at(user, UserLocationMarker.size, const UserLocationMarker()),
+            at(user, 21, const UserLocationMarker()),
           ],
         ),
       );

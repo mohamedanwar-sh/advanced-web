@@ -6,12 +6,14 @@ the flows between them are deliberately left out.
 
 | Screen | Board page | Route |
 |---|---|---|
+| Onboarding (3 slides) | 1–3 | `/onboarding` |
 | Home | 7 | `/` |
 | Active rental timer | 10 | `/rental` |
 
 ```bash
 flutter pub get
 flutter run                    # Home
+flutter run --route /onboarding  # Onboarding (web: open /#/onboarding)
 flutter run --route /rental    # Active rental (web: open /#/rental)
 flutter test                   # overflow + RTL checks at 6 phone sizes, interactions
 ```
@@ -34,12 +36,16 @@ lib/
     buno_charge_ring.dart           charge ring (12 o'clock, clockwise, glow)
     buno_charge_bar.dart            8pt power-bank charge bar
     buno_status_pill.dart           outlined status pill
+    buno_page_dots.dart             page indicator (RTL reading order)
     buno_bottom_nav.dart
     map_markers.dart                station / selected station / user markers
   screens/home/
     home_screen.dart                composition + bottom sheet
     home_top_bar.dart               logo, battery pill, profile button
     mock_map.dart                   local mock map (no maps SDK)
+  screens/onboarding/
+    onboarding_screen.dart          3-slide PageView, skip, CTA, "have an account"
+    onboarding_illustrations.dart   the three disc illustrations, drawn in code
   screens/rental/
     active_rental_screen.dart       timer ring, cost rows, nearest station, actions
 assets/                             supplied SVGs + Sora / Readex Pro TTFs
