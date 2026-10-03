@@ -67,7 +67,27 @@ lib/
   screens/profile/                  user card, account/help menus, logout
   screens/rental/
     active_rental_screen.dart       timer ring, cost rows, nearest station, actions
+assets/app_icon/                    supplied app-icon PNGs (source for the launcher icons)
 assets/                             supplied SVGs + Sora / Readex Pro TTFs;
                                     assets/brand/apple-logo.svg is Simple Icons (CC0)
 docs/                               screenshots
 ```
+
+## App icon
+
+Generated from the supplied `buno-design-system/app-icon` files with
+`dart run flutter_launcher_icons` (config in `pubspec.yaml`):
+
+- **iOS** — the supplied 1024 icon flattened onto its own `#0A0A0B`
+  background (`assets/app_icon/buno-app-icon-1024-square.png`), because the
+  App Store rejects transparency and iOS applies its own rounded mask.
+- **Android** — adaptive icon: supplied foreground on `#0A0A0B`, no extra
+  inset (the art already sits in the safe zone); the supplied rounded icon
+  for legacy launchers.
+- **Web** — the supplied 192/512 PNGs, maskable icons from the square
+  version, and the supplied green favicon.
+
+Preview: `docs/app_icon_preview.png`. After regenerating, revert the
+`ios/Runner.xcodeproj/project.pbxproj` edit the tool makes
+(it sets `ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS`
+to `AppIcon`, which is a bug).

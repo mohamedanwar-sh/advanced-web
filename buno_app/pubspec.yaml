@@ -17,6 +17,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
 
 flutter:
   uses-material-design: false
@@ -45,3 +46,21 @@ flutter:
           weight: 600
         - asset: assets/fonts/ReadexPro-Bold.ttf
           weight: 700
+
+# App icon — generated from the supplied buno-design-system/app-icon files.
+# Regenerate with: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  # iOS wants a full-bleed square without transparency (iOS rounds it):
+  # the supplied 1024 icon flattened onto its own #0A0A0B background.
+  ios: true
+  image_path_ios: "assets/app_icon/buno-app-icon-1024-square.png"
+  remove_alpha_ios: true
+  # Android: adaptive icon from the supplied foreground + brand background,
+  # and the supplied rounded icon for legacy launchers.
+  android: true
+  image_path_android: "assets/app_icon/buno-app-icon-1024.png"
+  adaptive_icon_background: "#0A0A0B"
+  adaptive_icon_foreground: "assets/app_icon/buno-adaptive-foreground-1080.png"
+  # The supplied foreground is already drawn inside the 66dp safe zone.
+  adaptive_icon_foreground_inset: 0
+  min_sdk_android: 21
