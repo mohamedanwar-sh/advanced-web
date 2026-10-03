@@ -8,6 +8,9 @@ import '../theme/buno_tokens_ext.dart';
 enum BunoIcons {
   profile('profile'),
   battery('battery'),
+  batteryLow('battery-low'),
+  batteryFull('battery-full'),
+  charging('charging'),
   location('location'),
   scan('scan'),
   home('home'),

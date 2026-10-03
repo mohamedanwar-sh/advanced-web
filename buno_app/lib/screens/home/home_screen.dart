@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../app_routes.dart';
+import '../../data/phone_battery.dart';
 import '../../theme/buno_tokens.dart';
 import '../../widgets/buno_bottom_nav.dart';
 import '../../widgets/buno_buttons.dart';
@@ -66,7 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   _gutter, 18, _gutter - 2, 12),
               child: Column(
                 children: [
-                  const HomeTopBar(batteryPercent: 18),
+                  ListenableBuilder(
+                    listenable: PhoneBattery.shared,
+                    builder: (context, _) => HomeTopBar(battery: PhoneBattery.shared.reading),
+                  ),
                   const SizedBox(height: 10),
                   const Padding(
                     padding: EdgeInsetsDirectional.only(end: 2),

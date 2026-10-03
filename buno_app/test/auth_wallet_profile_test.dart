@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'fake_battery.dart';
 import 'home_screen_test.dart' show loadBunoFonts;
 
 Future<void> _pumpRoute(WidgetTester tester, String route, {Size size = const Size(390, 844)}) async {
@@ -34,6 +35,7 @@ Future<void> _pumpRoute(WidgetTester tester, String route, {Size size = const Si
 
 void main() {
   setUpAll(loadBunoFonts);
+  setUp(useFakeBattery);
 
   const sizes = [
     Size(390, 844),

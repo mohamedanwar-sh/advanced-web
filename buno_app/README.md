@@ -34,6 +34,7 @@ lib/
   main.dart                         MaterialApp, Arabic locale (RTL), dark theme
   app_routes.dart                   route table, tab navigation
   data/mock_auth.dart               mocked sign-in / sign-up / code check
+  data/phone_battery.dart           live phone battery (battery_plus)
   theme/buno_tokens.dart            supplied Flutter tokens (verbatim)
   theme/buno_tokens_ext.dart        size / stroke / motion / type tokens from tokens.css + typography.md
   widgets/                          reusable pieces
@@ -91,3 +92,19 @@ Preview: `docs/app_icon_preview.png`. After regenerating, revert the
 `ios/Runner.xcodeproj/project.pbxproj` edit the tool makes
 (it sets `ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS`
 to `AppIcon`, which is a bug).
+
+## Phone battery (Home header)
+
+The battery pill on Home shows the phone's real charge, read with
+[`battery_plus`](https://pub.dev/packages/battery_plus) in
+`lib/data/phone_battery.dart`:
+
+- updates immediately when the phone is plugged in or unplugged, every 30 s
+  while the app is open, and whenever the app returns to the foreground;
+- orange with the low-battery icon at 20% or less, mint otherwise; the full
+  icon at 80%+; the charging bolt while charging;
+- shows `--%` when the battery can't be read: the **iOS Simulator has no
+  battery** (use a real iPhone), and Safari/Firefox don't expose the
+  browser Battery API.
+
+No permissions are needed on Android or iOS. States: `docs/battery_states.png`.

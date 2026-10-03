@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../../data/phone_battery.dart';
 import '../../theme/buno_tokens.dart';
 import '../../theme/buno_tokens_ext.dart';
 import '../../widgets/buno_icon.dart';
@@ -9,9 +10,10 @@ import '../../widgets/buno_pressable.dart';
 /// Logo on the start side (right in RTL); battery status and profile on the
 /// end side (left in RTL).
 class HomeTopBar extends StatelessWidget {
-  const HomeTopBar({super.key, required this.batteryPercent, this.onProfile});
+  const HomeTopBar({super.key, required this.battery, this.onProfile});
 
-  final int batteryPercent;
+  /// The phone's live battery reading.
+  final BatteryReading battery;
   final VoidCallback? onProfile;
 
   /// Logo box height that makes the wordmark ink 59pt wide, as in the reference.
@@ -32,7 +34,7 @@ class HomeTopBar extends StatelessWidget {
             child: const BunoLogo(height: _logoHeight),
           ),
           const Spacer(),
-          _BatteryStatus(percent: batteryPercent),
+          _BatteryStatus(reading: battery),
           const SizedBox(width: 8),
           _ProfileButton(onTap: onProfile),
         ],
@@ -72,17 +74,37 @@ class _ProfileButton extends StatelessWidget {
   }
 }
 
-/// Phone battery status pill ("18%" in Sora, warning colour when low).
+/// Phone battery status pill: live percentage in Sora, warning colour at
+/// 20% or less, charging bolt while plugged in, "--%" when unreadable.
 class _BatteryStatus extends StatelessWidget {
-  const _BatteryStatus({required this.percent});
+  const _BatteryStatus({required this.reading});
 
-  final int percent;
+  final BatteryReading reading;
 
   @override
   Widget build(BuildContext context) {
-    final color = percent <= 20 ? BunoColors.warning : BunoColors.secondary;
+    final percent = reading.percent;
+    final low = percent != null && percent <= 20 && !reading.charging;
+    final color = percent == null
+        ? BunoDark.text_secondary
+        : low
+            ? BunoColors.warning
+            : BunoColors.secondary;
+    final icon = reading.charging
+        ? BunoIcons.charging
+        : percent == null
+            ? BunoIcons.battery
+            : percent <= 20
+                ? BunoIcons.batteryLow
+                : percent >= 80
+                    ? BunoIcons.batteryFull
+                    : BunoIcons.battery;
+    final semantics = percent == null
+        ? 'شحن موبايلك مش معروف'
+        : 'شحن موبايلك $percent%${reading.charging ? '، بيشحن' : ''}';
     return Semantics(
-      label: 'شحن موبايلك $percent%',
+      label: semantics,
+      liveRegion: true,
       excludeSemantics: true,
       child: Container(
         height: 32,
@@ -95,10 +117,10 @@ class _BatteryStatus extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            BunoIcon(BunoIcons.battery, size: BunoSize.iconSm, color: color),
+            BunoIcon(icon, size: BunoSize.iconSm, color: color),
             const SizedBox(width: 4),
             Text(
-              '$percent%',
+              percent == null ? '--%' : '$percent%',
               textDirection: TextDirection.ltr,
               style: TextStyle(
                 fontFamily: BunoFonts.sora,

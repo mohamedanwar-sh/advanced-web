@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'fake_battery.dart';
+
 Future<void> loadBunoFonts() async {
   final families = {
     'Sora': ['Sora-Regular', 'Sora-SemiBold', 'Sora-Bold'],
@@ -36,6 +38,7 @@ Future<void> _pumpAt(WidgetTester tester, Size size) async {
 
 void main() {
   setUpAll(loadBunoFonts);
+  setUp(useFakeBattery);
 
   // Reference frame first, then small/large phones.
   const sizes = [
