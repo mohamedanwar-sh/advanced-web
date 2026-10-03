@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'screens/home/home_screen.dart';
-import 'screens/onboarding/onboarding_screen.dart';
-import 'screens/rental/active_rental_screen.dart';
+import 'app_routes.dart';
 import 'theme/buno_tokens.dart';
 import 'theme/buno_tokens_ext.dart';
 
@@ -50,13 +48,10 @@ class BunoApp extends StatelessWidget {
           contentTextStyle: BunoType.body,
         ),
       ),
-      // `flutter run --route /onboarding` opens pages 1-3, `--route /rental`
-      // opens page 10 (on web: `/#/onboarding`, `/#/rental`).
-      routes: {
-        '/': (_) => const HomeScreen(),
-        '/onboarding': (_) => const OnboardingScreen(),
-        '/rental': (_) => const ActiveRentalScreen(),
-      },
+      // `flutter run --route /login` etc. opens a screen directly
+      // (on web: `/#/login`). See AppRoutes for the list.
+      initialRoute: AppRoutes.home,
+      onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
 }

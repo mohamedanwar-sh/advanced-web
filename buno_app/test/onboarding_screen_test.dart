@@ -10,7 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'home_screen_test.dart' show loadBunoFonts;
 
-Future<void> _pumpAt(WidgetTester tester, Size size, {VoidCallback? onFinished}) async {
+Future<void> _pumpAt(WidgetTester tester, Size size, {VoidCallback? onFinished, VoidCallback? onHaveAccount}) async {
   tester.view.physicalSize = size * 3;
   tester.view.devicePixelRatio = 3;
   addTearDown(tester.view.reset);
@@ -19,7 +19,7 @@ Future<void> _pumpAt(WidgetTester tester, Size size, {VoidCallback? onFinished})
     supportedLocales: const [Locale('ar')],
     localizationsDelegates: GlobalMaterialLocalizations.delegates,
     theme: ThemeData(fontFamily: 'ReadexPro', scaffoldBackgroundColor: BunoDark.background),
-    home: OnboardingScreen(onFinished: onFinished),
+    home: OnboardingScreen(onFinished: onFinished, onHaveAccount: onHaveAccount ?? () {}),
   ));
   await tester.pumpAndSettle();
 }
@@ -78,8 +78,9 @@ void main() {
   });
 
   testWidgets('onboarding: CTA walks the pages, last page finishes', (tester) async {
-    var finished = 0;
-    await _pumpAt(tester, const Size(390, 844), onFinished: () => finished++);
+    var finished = 0, haveAccount = 0;
+    await _pumpAt(tester, const Size(390, 844),
+        onFinished: () => finished++, onHaveAccount: () => haveAccount++);
 
     expect(find.text('يلا'), findsOneWidget);
     await tester.tap(find.text('يلا'));
@@ -102,7 +103,7 @@ void main() {
 
     await tester.tap(find.text('عندي حساب'));
     await tester.pump();
-    expect(find.byType(SnackBar), findsOneWidget);
+    expect(haveAccount, 1);
   });
 
   testWidgets('onboarding: skip finishes immediately', (tester) async {

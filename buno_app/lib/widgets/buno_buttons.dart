@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import '../theme/buno_tokens.dart';
 import '../theme/buno_tokens_ext.dart';
@@ -13,16 +13,21 @@ class BunoPrimaryButton extends StatelessWidget {
     required this.label,
     required this.onPressed,
     this.icon,
+    this.loading = false,
   });
 
   final String label;
   final BunoIcons? icon;
   final VoidCallback? onPressed;
 
+  /// Loading state (components.md): the label swaps for a 20pt spinner and
+  /// taps are ignored; the button keeps its size.
+  final bool loading;
+
   @override
   Widget build(BuildContext context) {
     return BunoPressable(
-      onTap: onPressed,
+      onTap: loading ? null : onPressed,
       semanticLabel: label,
       child: Container(
         height: BunoSize.buttonLg,
@@ -30,7 +35,17 @@ class BunoPrimaryButton extends StatelessWidget {
           color: BunoColors.primary,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Row(
+        child: loading
+            ? const Center(
+                child: SizedBox.square(
+                  dimension: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    color: BunoDark.on_primary,
+                  ),
+                ),
+              )
+            : Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (icon != null) ...[
@@ -62,6 +77,8 @@ class BunoSecondaryButton extends StatelessWidget {
     this.iconColor = BunoDark.text_secondary,
     this.compact = false,
     this.labelSize,
+    this.leading,
+    this.labelWeight = FontWeight.w400,
   });
 
   final String label;
@@ -75,6 +92,10 @@ class BunoSecondaryButton extends StatelessWidget {
 
   /// Overrides the label size (defaults: 14, or 13 when [compact]).
   final double? labelSize;
+
+  /// A non-icon-set mark shown before the label (e.g. the Apple logo).
+  final Widget? leading;
+  final FontWeight labelWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +112,10 @@ class BunoSecondaryButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            if (leading != null) ...[
+              leading!,
+              const SizedBox(width: 12),
+            ],
             if (icon != null) ...[
               BunoIcon(
                 icon!,
@@ -102,7 +127,7 @@ class BunoSecondaryButton extends StatelessWidget {
             Text(
               label,
               style: BunoType.button.copyWith(
-                fontWeight: FontWeight.w400,
+                fontWeight: labelWeight,
                 fontSize: labelSize ?? (compact ? 13 : 14),
               ),
             ),

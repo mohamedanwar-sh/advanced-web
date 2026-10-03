@@ -15,7 +15,22 @@ enum BunoIcons {
   wallet('wallet'),
   close('close'),
   warning('warning'),
-  receipt('receipt');
+  receipt('receipt'),
+  mail('mail'),
+  lock('lock'),
+  back('back'),
+  forward('forward'),
+  check('check'),
+  plus('plus'),
+  creditCard('credit-card'),
+  edit('edit'),
+  logout('logout'),
+  language('language'),
+  help('help'),
+  terms('terms'),
+  privacy('privacy'),
+  notifications('notifications'),
+  powerBank('power-bank');
 
   const BunoIcons(this.fileName);
   final String fileName;

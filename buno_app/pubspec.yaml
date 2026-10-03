@@ -24,6 +24,7 @@ flutter:
   assets:
     - assets/logo/
     - assets/icons/
+    - assets/brand/
 
   fonts:
     - family: Sora

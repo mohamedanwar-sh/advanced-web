@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../app_routes.dart';
 import '../../theme/buno_tokens.dart';
 import '../../theme/buno_tokens_ext.dart';
 import '../../widgets/buno_buttons.dart';
@@ -21,7 +22,7 @@ class _Slide {
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key, this.onFinished, this.onHaveAccount});
 
-  /// Called by "ابدأ دلوقتي" and "تخطي". Defaults to replacing with Home.
+  /// Called by "ابدأ دلوقتي" and "تخطي". Defaults to the sign-up screen.
   final VoidCallback? onFinished;
   final VoidCallback? onHaveAccount;
 
@@ -66,7 +67,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     if (widget.onFinished != null) {
       widget.onFinished!();
     } else {
-      Navigator.of(context).pushReplacementNamed('/');
+      Navigator.of(context).pushReplacementNamed(AppRoutes.signup);
     }
   }
 
@@ -77,13 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void _haveAccount() {
     if (widget.onHaveAccount != null) return widget.onHaveAccount!();
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(
-        content: Text('تسجيل الدخول هييجي في الخطوة الجاية'),
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 2),
-      ));
+    Navigator.of(context).pushReplacementNamed(AppRoutes.login);
   }
 
   @override

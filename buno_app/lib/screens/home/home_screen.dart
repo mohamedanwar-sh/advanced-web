@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../app_routes.dart';
 import '../../theme/buno_tokens.dart';
 import '../../widgets/buno_bottom_nav.dart';
 import '../../widgets/buno_buttons.dart';
@@ -19,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _tab = 0;
+  static const _tab = 0;
 
   /// Horizontal screen margin measured on the reference (22pt).
   static const _gutter = 22.0;
@@ -112,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BunoBottomNav(
         items: _navItems,
         currentIndex: _tab,
-        onSelected: (i) => setState(() => _tab = i),
+        onSelected: (i) => AppRoutes.goToTab(context, i, _tab),
       ),
     );
   }

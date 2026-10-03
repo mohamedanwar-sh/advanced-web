@@ -1,4 +1,5 @@
 import 'package:buno/main.dart';
+import 'package:buno/screens/wallet/wallet_screen.dart';
 import 'package:buno/widgets/buno_bottom_nav.dart';
 import 'package:buno/widgets/buno_buttons.dart';
 import 'package:buno/widgets/buno_logo.dart';
@@ -81,8 +82,10 @@ void main() {
 
     BunoBottomNav nav() => tester.widget(find.byType(BunoBottomNav));
     expect(nav().currentIndex, 0);
+    // The nav now switches screens: Wallet opens with its tab selected.
     await tester.tap(find.text('المحفظة'));
-    await tester.pump();
+    await tester.pumpAndSettle();
+    expect(find.byType(WalletScreen), findsOneWidget);
     expect(nav().currentIndex, 2);
     expect(tester.takeException(), isNull);
   });
